@@ -1,0 +1,36 @@
+{
+    "id": 1,
+    "itemQuantity": {
+      "id": 1,
+      "item": {
+        "id": 1,
+        "name": "A4 Paper",
+        "price": 0.25,
+        "description": "Plain old A4 paper"
+      },
+      "quantity": 1000
+    },
+    "date": "2022-03-05T00:37:24.6181125+03:00",
+    "employee": {
+      "id": 1,
+      "name": "Abebe Kebede",
+      "email": "abekebe@gmail.com",
+      "role": "Sales Person",
+      "office": {
+        "id": 1,
+        "name": "Dunder Mifflin",
+        "role": "Branch Office"
+      },
+      "unit": {
+        "id": 1,
+        "name": "Sales unit 1",
+        "description": "first sales unit"
+      }
+    },
+    "customer": {
+      "id": 1,
+      "name": "Isaac Newton",
+      "email": "isaac@gmail.com",
+      "address": "somewhere"
+    }
+  }
