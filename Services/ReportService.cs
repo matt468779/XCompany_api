@@ -23,13 +23,16 @@ public class ReportService
         DateOnly weekMonday = firstMonday.AddDays((week-1)*7);
         DateOnly weekSunday = weekMonday.AddDays(6);
 
+
         return _context.Sales
-            .Include(s => s.EmployeeId)
             .Include(s => s.ItemQuantity)
-            .Include(s => s.CustomerId)
             .AsNoTracking()
-            .Where(s => s.EmployeeId == unitId && weekMonday.CompareTo(s.Date) <= 0  && weekSunday.CompareTo(s.Date) >=0 )
+            .Where(s => s.unitId == unitId && weekMonday <= DateOnly.FromDateTime((DateTime)s.Date!)  && weekSunday >= DateOnly.FromDateTime((DateTime)s.Date!))
             .ToList();
+    }
+
+    private int compareDate(DateOnly firstDate, DateOnly secondDate){
+        return firstDate.CompareTo(secondDate);
     }
 
     public IEnumerable<IEnumerable<Sale>> monthlyReportUnit(int year, int month, int unitId){
@@ -40,10 +43,10 @@ public class ReportService
         return report;
     }
     
-    public IEnumerable<IEnumerable<IEnumerable<Sale>>> yearlyReportUnit(int year, int month, int unitId){
-        IEnumerable<IEnumerable<IEnumerable<Sale>>> report = new List<IEnumerable<IEnumerable<Sale>>>{};
+    public IEnumerable<IEnumerable<IEnumerable<Sale>>> yearlyReportUnit(int year, int unitId){
+        List<IEnumerable<IEnumerable<Sale>>> report = new List<IEnumerable<IEnumerable<Sale>>>{};
         for (int i = 1; i <= 12; i++){
-            report.Append(monthlyReportUnit(year, month, unitId));
+            report.Add(monthlyReportUnit(year, i, unitId));
         }
         return report;
     }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace XCompany_api.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Branch Manager,Main Office Manager,Sales Person")]
 [ApiController]
 [Route("[controller]")]
 public class SalesController : ControllerBase {

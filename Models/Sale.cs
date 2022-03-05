@@ -19,6 +19,8 @@ public class Sale
     public int? EmployeeId { get; set; }
     [ForeignKey("Customer")]
     public int? CustomerId { get; set; }
+    [ForeignKey("Unit")]
+    public int? unitId { get; set; }
     
     //public ICollection<Topping>? Toppings { get; set; }
 }
