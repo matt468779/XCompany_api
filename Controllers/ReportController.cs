@@ -2,6 +2,7 @@ using XCompany_api.Services;
 using XCompany_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace XCompany_api.Controllers;
 
@@ -21,8 +22,8 @@ public class ReportController : ControllerBase {
     }
 
     [HttpGet("{unitId}/{year}-{month}-{week}")]
-    [Route("unit/weekly")]
     public IEnumerable<Sale> GetWeeklyReportByUnit(int year, int month, int week, int unitId){
+        var user = User.FindFirstValue(ClaimTypes.Name);
         return _service.weeklyReportUnit(year, month, week, unitId);
     }
     [HttpGet("{unitId}/{year}-{month}")]

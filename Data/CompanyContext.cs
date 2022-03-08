@@ -13,9 +13,6 @@ public class CompanyContext : DbContext{
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Capability> Capabilities => Set<Capability>();
-    public DbSet<EmployeeWeeklyPlan> EmployeeWeeklyPlans => Set<EmployeeWeeklyPlan>();
-    public DbSet<EmployeeMonthlyPlan> EmployeeMonthlyPlans => Set<EmployeeMonthlyPlan>();
-    public DbSet<EmployeeYearlyPlan> EmployeeYearlyPlans => Set<EmployeeYearlyPlan>();
     public DbSet<Item> Items => Set<Item>();
     public DbSet<ItemQuantity> ItemQuantities => Set<ItemQuantity>();
     public DbSet<Office> Offices => Set<Office>();
@@ -34,8 +31,6 @@ public class CompanyContext : DbContext{
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<MonthlyPlan>()
-            .HasKey(m => new {m.Year , m.Month });
         modelBuilder.Entity<IdentityUserRole<string>>()
             .HasKey(i => new {i.UserId, i.RoleId});
     }

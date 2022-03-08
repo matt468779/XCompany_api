@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using XCompany_api.Data;
 
@@ -10,9 +11,10 @@ using XCompany_api.Data;
 namespace XCompany_api.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20220307153910_ModelRevisions20")]
+    partial class ModelRevisions20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,16 +201,19 @@ namespace XCompany_api.Migrations
                     b.Property<int?>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MonthlyPlanId")
+                    b.Property<int?>("MonthlyPlanMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonthlyPlanYear")
                         .HasColumnType("int");
 
                     b.Property<int?>("SaleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WeeklyPlanId")
+                    b.Property<int?>("WeeklyPlanid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("YearlyPlanId")
+                    b.Property<int?>("YearlyPlanid")
                         .HasColumnType("int");
 
                     b.Property<int?>("quantity")
@@ -216,13 +221,13 @@ namespace XCompany_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MonthlyPlanId");
-
                     b.HasIndex("SaleId");
 
-                    b.HasIndex("WeeklyPlanId");
+                    b.HasIndex("WeeklyPlanid");
 
-                    b.HasIndex("YearlyPlanId");
+                    b.HasIndex("YearlyPlanid");
+
+                    b.HasIndex("MonthlyPlanYear", "MonthlyPlanMonth");
 
                     b.ToTable("ItemQuantities");
                 });
@@ -243,14 +248,13 @@ namespace XCompany_api.Migrations
 
             modelBuilder.Entity("XCompany_api.Models.MonthlyPlan", b =>
                 {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Customers")
+                    b.Property<int?>("Year")
                         .HasColumnType("int");
 
                     b.Property<int?>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Customers")
                         .HasColumnType("int");
 
                     b.Property<double?>("Total")
@@ -262,10 +266,10 @@ namespace XCompany_api.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("Year")
+                    b.Property<int?>("id")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Year", "Month");
 
                     b.ToTable("MonthlyPlans");
                 });
@@ -371,7 +375,7 @@ namespace XCompany_api.Migrations
 
             modelBuilder.Entity("XCompany_api.Models.WeeklyPlan", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int?>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -393,14 +397,14 @@ namespace XCompany_api.Migrations
                     b.Property<int?>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("WeeklyPlans");
                 });
 
             modelBuilder.Entity("XCompany_api.Models.YearlyPlan", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int?>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -419,28 +423,28 @@ namespace XCompany_api.Migrations
                     b.Property<int?>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("YearlyPlans");
                 });
 
             modelBuilder.Entity("XCompany_api.Models.ItemQuantity", b =>
                 {
-                    b.HasOne("XCompany_api.Models.MonthlyPlan", null)
-                        .WithMany("ItemQuantities")
-                        .HasForeignKey("MonthlyPlanId");
-
                     b.HasOne("XCompany_api.Models.Sale", null)
                         .WithMany("ItemQuantity")
                         .HasForeignKey("SaleId");
 
                     b.HasOne("XCompany_api.Models.WeeklyPlan", null)
                         .WithMany("ItemQuantities")
-                        .HasForeignKey("WeeklyPlanId");
+                        .HasForeignKey("WeeklyPlanid");
 
                     b.HasOne("XCompany_api.Models.YearlyPlan", null)
                         .WithMany("ItemQuantities")
-                        .HasForeignKey("YearlyPlanId");
+                        .HasForeignKey("YearlyPlanid");
+
+                    b.HasOne("XCompany_api.Models.MonthlyPlan", null)
+                        .WithMany("ItemQuantities")
+                        .HasForeignKey("MonthlyPlanYear", "MonthlyPlanMonth");
                 });
 
             modelBuilder.Entity("XCompany_api.Models.MonthlyPlan", b =>

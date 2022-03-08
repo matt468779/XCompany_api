@@ -5,12 +5,10 @@ namespace XCompany_api.Models;
 
 public class Employee
 {
-    public int Id { get; set; }
-
     [Required]
     [MaxLength(100)]
     public string? Name { get; set; }
-
+    [Key]
     public string? Username { get; set; }
 
     [Required]

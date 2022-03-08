@@ -4,13 +4,16 @@ namespace XCompany_api.Models;
 
 public class WeeklyPlan
 {
-    public int? id { get; set; } 
+    [Key]
+    public int? Id { get; set; } 
+
+    public string? Username { get; set; }
 
     public int? Year { get; set; }
 
-    public int? month { get; set; }
+    public int? Month { get; set; }
 
-    public int? week { get; set; }
+    public int? Week { get; set; }
     public double? Total { get; set; }
 
     public int? Customers { get; set; }
@@ -21,18 +24,41 @@ public class WeeklyPlan
 
 public class MonthlyPlan
 {
+    [Key]
+    public int? Id { get; set; } 
+
+    public string? Username { get; set; }
+
     public int? Year { get; set; }
 
     public int? Month { get; set; }
 
-    public ICollection<WeeklyPlan>? WeeklyPlans { get; set; }
+    public double? Total { get; set; }
+
+    public int? Customers { get; set; }
+
+    public int? UnitId { get; set; }
+
+    public ICollection<ItemQuantity>? ItemQuantities { get; set; }
+
 }
 
 public class YearlyPlan
 {
     [Key]
-    public int? YearId { get; set; }
+    public int? Id { get; set; } 
 
-    public ICollection<MonthlyPlan>? MonthlyPlans { get; set; }
+    public string? Username { get; set; }
+
+    public int? Year { get; set; }
+
+    public double? Total { get; set; }
+
+    public int? Customers { get; set; }
+
+    public int? BranchId { get; set; }
+
+    public ICollection<ItemQuantity>? ItemQuantities { get; set; }
+
 }
 

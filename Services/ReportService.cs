@@ -23,7 +23,7 @@ public class ReportService
         DateOnly weekMonday = firstMonday.AddDays((week-1)*7);
         DateOnly weekSunday = weekMonday.AddDays(6);
 
-
+        
         return _context.Sales
             .Include(s => s.ItemQuantity)
             .AsNoTracking()
